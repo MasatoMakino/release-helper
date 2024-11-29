@@ -1,0 +1,19 @@
+changelog:
+  categories:
+    - title: "🚨 Breaking Changes"
+      labels:
+        - major
+    - title : "🪛 Changes"
+      labels:
+        - "*"
+      exclude:
+        labels:
+          - major
+          - dependencies
+          - release
+    - title: "🔧 Dependencies"
+      labels:
+        - dependencies
+      exclude:
+        labels:
+          - major
