@@ -9,20 +9,28 @@ export async function getTagVersion(): Promise<string> {
 	return result.stdout;
 }
 
-export async function getPreviousTagVersion(): Promise<string> {
-	const prevHashResult = await execa("git", [
-		"rev-list",
-		"--tags",
-		"--skip=1",
-		"--max-count=1",
-	]);
-	const versionResult = await execa("git", [
-		"describe",
-		"--tags",
-		"--abbrev=0",
-		prevHashResult.stdout,
-	]);
-	return versionResult.stdout;
+/**
+ * get previous version with git describe
+ * @returns {Promise<string | undefined>} The previous tag version
+ */
+export async function getPreviousTagVersion(): Promise<string | undefined> {
+	try {
+		const prevHashResult = await execa("git", [
+			"rev-list",
+			"--tags",
+			"--skip=1",
+			"--max-count=1",
+		]);
+		const versionResult = await execa("git", [
+			"describe",
+			"--tags",
+			"--abbrev=0",
+			prevHashResult.stdout,
+		]);
+		return versionResult.stdout;
+	} catch (e) {
+		return undefined;
+	}
 }
 
 /**

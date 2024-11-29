@@ -7,12 +7,13 @@ import { getPreviousTagVersion, getTagVersion } from "../getTagVersion.js";
 export async function createDraft(): Promise<void> {
 	const tag = await getTagVersion();
 	const prevTag = await getPreviousTagVersion();
+	const optionNoteStartTag = prevTag ? ["--notes-start-tag", prevTag] : [];
+
 	await execa("gh", [
 		"release",
 		"create",
 		tag,
-		"--notes-start-tag",
-		prevTag,
+		...optionNoteStartTag,
 		"--generate-notes",
 		"--verify-tag",
 		"--draft",
