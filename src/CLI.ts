@@ -1,4 +1,5 @@
 import { Command, Option } from "commander";
+import { addReleaseNoteTemplate } from "./addReleaseNoteTemplate.js";
 import { initLabel } from "./initLabel.js";
 import { postversion } from "./postversion.js";
 import { preversion } from "./preversion.js";
@@ -57,6 +58,14 @@ program
 	.description("initialize release label")
 	.action(async () => {
 		await initLabel();
+	});
+
+program
+	.command("generate-release-template")
+	.description("generate release note template to .github directory")
+	.option("--force", "overwrite existing file", false)
+	.action(async (options) => {
+		await addReleaseNoteTemplate(options.force);
 	});
 
 program.parse();

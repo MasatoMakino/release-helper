@@ -4,7 +4,7 @@
 	"description": "A simple script to automate the release process, including creating release branches, updating version numbers, and generating GitHub releases.",
 	"main": "index.js",
 	"type": "module",
-	"files": ["dist"],
+	"files": ["dist", "template"],
 	"bin": {
 		"release-helper": "dist/CLI.js"
 	},
@@ -21,6 +21,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@types/node": "^22.10.1",
 		"lefthook": "^1.8.4",
 		"typescript": "^5.7.2"
 	},
