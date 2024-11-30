@@ -57,9 +57,10 @@ program
 
 program
 	.command("init")
-	.description("initialize release label")
+	.description("initialize release label and release note template")
 	.action(async () => {
 		await initLabel();
+		await addReleaseNoteTemplate();
 	});
 
 program
