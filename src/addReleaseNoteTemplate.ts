@@ -23,5 +23,3 @@ export async function addReleaseNoteTemplate(isForce = false) {
 		throw e;
 	}
 }
-
-addReleaseNoteTemplate();
