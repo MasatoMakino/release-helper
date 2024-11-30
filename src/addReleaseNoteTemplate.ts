@@ -18,7 +18,7 @@ export async function addReleaseNoteTemplate(isForce = false) {
 	} catch (e) {
 		if ((e as NodeJS.ErrnoException).code === "EEXIST") {
 			console.log(
-				"Skip copying release.yml file to .github/workflows directory",
+				"File '.github/release.yml' already exists. Command skipped copying release.yml file.",
 			);
 			return;
 		}
