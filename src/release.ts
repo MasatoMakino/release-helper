@@ -3,6 +3,7 @@ import {
 	checkMerged,
 	checkTagExists,
 	createDraft,
+	deleteBranch,
 	openDraft,
 	pushTags,
 } from "./release/index.js";
@@ -17,4 +18,5 @@ export async function release(options: CommonCommandOptions): Promise<void> {
 	await pushTags();
 	await createDraft();
 	await openDraft();
+	await deleteBranch(options.defaultBranch);
 }
