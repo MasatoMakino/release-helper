@@ -22,6 +22,8 @@ export async function addPullRequestLabel(
 	} catch (e) {
 		if (
 			isExecaError(e) &&
+			e.stderr &&
+			typeof e.stderr === "string" &&
 			e.stderr.includes("already exists; use `--force` to update")
 		) {
 			return;
