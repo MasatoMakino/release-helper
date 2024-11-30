@@ -61,7 +61,12 @@ async function initReleaseLabel() {
  * @param prUrl
  */
 async function handleMergeError(e: unknown, prUrl: string) {
-	if (isExecaError(e) && e.stderr.includes("(enablePullRequestAutoMerge)")) {
+	if (
+		isExecaError(e) &&
+		e.stderr &&
+		typeof e.stderr === "string" &&
+		e.stderr.includes("(enablePullRequestAutoMerge)")
+	) {
 		const isOpenBrowser = await openBrowser(prUrl);
 		if (!isOpenBrowser) {
 			throw e;
