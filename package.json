@@ -2,11 +2,10 @@
 	"name": "@masatomakino/release-helper",
 	"version": "0.1.2",
 	"description": "A simple script to automate the release process, including creating release branches, updating version numbers, and generating GitHub releases.",
-	"main": "index.js",
 	"type": "module",
 	"files": ["dist", "template"],
 	"bin": {
-		"release-helper": "dist/CLI.js"
+		"release-helper": "./dist/CLI.js"
 	},
 	"scripts": {
 		"test": "echo \"no test specified\" && exit 0",
