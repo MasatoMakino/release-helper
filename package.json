@@ -1,6 +1,6 @@
 {
 	"name": "@masatomakino/release-helper",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"description": "A simple script to automate the release process, including creating release branches, updating version numbers, and generating GitHub releases.",
 	"type": "module",
 	"files": ["dist", "template"],
