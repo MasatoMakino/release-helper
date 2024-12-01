@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { addPullRequestLabel } from "../addPullRequestLabel.js";
 import { getTagBranchName } from "../getTagVersion.js";
-import { isExecaError } from "../isExecaError.js";
+import { isExecaError, isExecaErrorWithErrorCode } from "../isExecaError.js";
 
 const releaseLabel = "release";
 
@@ -13,7 +13,7 @@ const releaseLabel = "release";
 export async function pullRequest(
 	defaultBranch: string,
 	useAutoMerge: boolean,
-): Promise<void> {
+): Promise<string | undefined> {
 	await initReleaseLabel();
 
 	const branchName = await getTagBranchName();
@@ -32,7 +32,14 @@ export async function pullRequest(
 	// If the auto merge is enabled, merge the pull request automatically
 	try {
 		if (useAutoMerge) {
-			await execa("gh", ["pr", "merge", branchName, "--merge", "--auto"]);
+			const result = await execa("gh", [
+				"pr",
+				"merge",
+				branchName,
+				"--merge",
+				"--auto",
+			]);
+			return prResult.stdout;
 		}
 	} catch (e: unknown) {
 		await handleMergeError(e, prResult.stdout);
@@ -42,6 +49,7 @@ export async function pullRequest(
 		// If the auto merge is disabled, open the browser
 		await openBrowser(prResult.stdout);
 	}
+	return undefined;
 }
 
 /**
@@ -61,12 +69,7 @@ async function initReleaseLabel() {
  * @param prUrl
  */
 async function handleMergeError(e: unknown, prUrl: string) {
-	if (
-		isExecaError(e) &&
-		e.stderr &&
-		typeof e.stderr === "string" &&
-		e.stderr.includes("(enablePullRequestAutoMerge)")
-	) {
+	if (isExecaErrorWithErrorCode(e, "(enablePullRequestAutoMerge)")) {
 		const isOpenBrowser = await openBrowser(prUrl);
 		if (!isOpenBrowser) {
 			throw e;
@@ -81,7 +84,7 @@ async function handleMergeError(e: unknown, prUrl: string) {
  * @param output url of pull request
  * @returns is open browser
  */
-async function openBrowser(output: string) {
+export async function openBrowser(output: string) {
 	const match = output.match(/\/pull\/(\d+)$/);
 	if (match) {
 		const prNumber = match[1];
