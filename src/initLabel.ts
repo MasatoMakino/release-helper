@@ -8,6 +8,12 @@ export async function initLabel() {
 	);
 
 	await addPullRequestLabel(
+		"CICD",
+		"Pull request for maintaining the CI/CD environment",
+		"90cdf4",
+	);
+
+	await addPullRequestLabel(
 		"major",
 		"Pull request for the new major version",
 		"b60205",
