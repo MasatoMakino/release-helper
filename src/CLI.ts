@@ -2,6 +2,7 @@
 
 import { Command, Option } from "commander";
 import { addReleaseNoteTemplate } from "./addReleaseNoteTemplate.js";
+import { cleanMerged } from "./cleanMerged.js";
 import { initLabel } from "./initLabel.js";
 import { postversion } from "./postversion.js";
 import { preversion } from "./preversion.js";
@@ -69,6 +70,15 @@ program
 	.option("--force", "overwrite existing file", false)
 	.action(async (options) => {
 		await addReleaseNoteTemplate(options.force);
+	});
+
+program
+	.command("clean-merged")
+	.description("clean up merged local branches")
+	.addOption(defaultBranchOption)
+	.addOption(dryRunOption)
+	.action(async (options) => {
+		await cleanMerged(options);
 	});
 
 program.parse();
