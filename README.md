@@ -20,6 +20,11 @@ Install the package
 
 ```bash
 npm install -D @masatomakino/release-helper
+```
+
+and initialize labels and release note template on GitHub.
+
+```
 npx @masatomakino/release-helper init
 ```
 
@@ -33,7 +38,7 @@ add the following to your `package.json`
 
 ## Usage
 
-`npm version <patch|minor|major>` will create a new release branch, update the version number in the project files, and create a pull request of GitHub.
+`npm version <patch|minor|major>` will create a new release branch, update the version number in the project files, and create a pull request of GitHub. If you enable auto merge and status check, `release` command will execute automatically.
 
 `npm run release` will push a tag, and create druft release of GitHub.
 
@@ -46,12 +51,13 @@ Options:
   -h, --help             display help for command
 
 Commands:
-  preversion [options]   checkout to default branch and pull latest changes, and run test
-  postversion [options]  create a pull request on GitHub
-  release [options]      push version tag and create a release on GitHub
-  preview                get release note from GitHub release
-  init                   initialize release label
-  help [command]         display help for command
+  preversion [options]                 checkout to default branch and pull latest changes, and run test
+  postversion [options]                create a pull request on GitHub
+  release [options]                    push version tag and create a release on GitHub
+  preview                              get release note from GitHub release
+  init                                 initialize release label and release note template
+  generate-release-template [options]  generate release note template to .github directory
+  help [command]                       display help for command
 ```
 
 ## License
