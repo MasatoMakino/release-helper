@@ -8,6 +8,7 @@ export async function checkNpmTestCompletion() {
 	console.log("Checking npm test script...");
 	try {
 		const result = await execa("npm", ["test"], { timeout: 180_000 });
+		console.log("Tests script completed successfully.");
 	} catch (e) {
 		if (isExecaError(e) && e.exitCode === 1) {
 			console.log("Tests failed. Please fix the failing tests.");
