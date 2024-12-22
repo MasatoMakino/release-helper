@@ -2,6 +2,7 @@
 
 import { Command, Option } from "commander";
 import { addReleaseNoteTemplate } from "./addReleaseNoteTemplate.js";
+import { checkNpmTestCompletion } from "./checkNpmTestCompletion.js";
 import { cleanMerged } from "./cleanMerged.js";
 import { initLabel } from "./initLabel.js";
 import { postversion } from "./postversion.js";
@@ -62,6 +63,7 @@ program
 	.action(async () => {
 		await initLabel();
 		await addReleaseNoteTemplate();
+		await checkNpmTestCompletion();
 	});
 
 program
