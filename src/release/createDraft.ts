@@ -18,4 +18,36 @@ export async function createDraft(): Promise<void> {
 		"--verify-tag",
 		"--draft",
 	]);
+
+	const viewResult = await execa("gh", [
+		"release",
+		"view",
+		tag,
+		"--json",
+		"body",
+	]);
+	const body = JSON.parse(viewResult.stdout).body;
+
+	const dependenciesSectionRegex =
+		/(### 🔧 Dependencies\n)([\s\S]*?)(?=\n### |\n\n)/;
+	const match = body.match(dependenciesSectionRegex);
+
+	if (match) {
+		const wrappedDependencies = `
+${match[1].trim()}
+
+<details>
+<summary>All Updated Dependencies</summary>
+
+${match[2].trim()}
+
+</details>
+`;
+
+		const replacedBody = body.replace(
+			dependenciesSectionRegex,
+			wrappedDependencies,
+		);
+		await execa("gh", ["release", "edit", tag, "--notes", replacedBody]);
+	}
 }
