@@ -21,7 +21,7 @@ export async function checkNpmTestCompletion() {
 			typeof e.stderr === "string" &&
 			e.stderr.includes('npm error Missing script: "test"')
 		) {
-			console.log("Tests not exist. Please fix the failing tests.");
+			console.log("Tests not exist. Please add test script to package.json.");
 		} else {
 			throw e;
 		}
