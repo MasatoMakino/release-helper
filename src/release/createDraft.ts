@@ -1,5 +1,7 @@
 import { execa } from "execa";
 import { getPreviousTagVersion, getTagVersion } from "../getTagVersion.js";
+import { getReleaseNoteBody } from "../util/getReleaseNoteBody.js";
+import { wrapDependencies } from "../util/wrapDependencies.js";
 
 /**
  * Create a draft release
@@ -19,35 +21,16 @@ export async function createDraft(): Promise<void> {
 		"--draft",
 	]);
 
-	const viewResult = await execa("gh", [
-		"release",
-		"view",
-		tag,
-		"--json",
-		"body",
-	]);
-	const body = JSON.parse(viewResult.stdout).body;
+	const body = await getReleaseNoteBody(tag);
 
-	const dependenciesSectionRegex =
-		/(### 🔧 Dependencies\n)([\s\S]*?)(?=\n### |\n\n)/;
-	const match = body.match(dependenciesSectionRegex);
-
-	if (match) {
-		const wrappedDependencies = `
-${match[1].trim()}
-
-<details>
-<summary>All Updated Dependencies</summary>
-
-${match[2].trim()}
-
-</details>
-`;
-
-		const replacedBody = body.replace(
-			dependenciesSectionRegex,
-			wrappedDependencies,
-		);
-		await execa("gh", ["release", "edit", tag, "--notes", replacedBody]);
+	const wrappedDependenciesBody = wrapDependencies(body);
+	if (wrappedDependenciesBody) {
+		await execa("gh", [
+			"release",
+			"edit",
+			tag,
+			"--notes",
+			wrappedDependenciesBody,
+		]);
 	}
 }

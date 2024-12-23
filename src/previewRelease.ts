@@ -1,4 +1,5 @@
 import { execa } from "execa";
+import { getReleaseNoteBody } from "util/getReleaseNoteBody.js";
 import { getTagVersion } from "./getTagVersion.js";
 
 /**
@@ -19,8 +20,6 @@ export async function previewRelease(): Promise<void> {
 		"--draft",
 	]);
 
-	const viewResult = await execa("gh", ["release", "view", nextTag]);
-	console.log(viewResult.stdout);
-
+	console.log(await getReleaseNoteBody(nextTag));
 	await execa("gh", ["release", "delete", nextTag]);
 }
