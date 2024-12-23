@@ -1,5 +1,6 @@
 import { execa } from "execa";
 import { getTagVersion } from "./getTagVersion.js";
+import { getReleaseNoteBody } from "./util/getReleaseNoteBody.js";
 
 /**
  * Create a release draft on GitHub.
@@ -19,8 +20,6 @@ export async function previewRelease(): Promise<void> {
 		"--draft",
 	]);
 
-	const viewResult = await execa("gh", ["release", "view", nextTag]);
-	console.log(viewResult.stdout);
-
+	console.log(await getReleaseNoteBody(nextTag));
 	await execa("gh", ["release", "delete", nextTag]);
 }
