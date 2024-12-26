@@ -41,7 +41,16 @@ export async function getCheckStatus(prURL: string) {
 				checkTimeout(startTime, timeout, intervalId, resolve);
 			} catch (e) {
 				if (isExecaErrorWithErrorCode(e, "no required checks reported")) {
-					console.log("No required checks reported.");
+					console.error(
+						"Required status checks have not been executed.\n" +
+							"This error indicates that the workflows required by the pull request did not run.\n\n" +
+							"Resolution Steps:\n" +
+							"1. Remove the workflows that did not run from the ruleset.\n" +
+							"2. Manually merge the pull request.\n" +
+							"3. After merging, run the 'release' command again.\n\n" +
+							"For more details, please refer to the following documentation:\n" +
+							"https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#require-status-checks-to-pass-before-merging",
+					);
 					clearInterval(intervalId);
 					resolve("failed");
 				}
