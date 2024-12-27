@@ -1,3 +1,8 @@
+/**
+ * Wraps the dependencies section in a collapsible details element.
+ * @param body
+ * @returns
+ */
 export function wrapDependencies(body: string): string | null {
 	const dependenciesSectionRegex =
 		/(### 🔧 Dependencies\n)([\s\S]*?)(?=\n### |\n\n)/;
