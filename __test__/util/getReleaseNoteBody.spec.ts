@@ -12,7 +12,7 @@ describe("getReleaseNoteBody", () => {
 				exitCode: 0,
 			}),
 		}));
-		const result = await getReleaseNoteBody("v0.1.1");
+		const result = await getReleaseNoteBody("v1.0.0");
 		expect(result).toMatch("## What's Changed");
 
 		vi.restoreAllMocks();
