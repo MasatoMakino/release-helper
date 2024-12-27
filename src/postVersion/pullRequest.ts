@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { addPullRequestLabel } from "../addPullRequestLabel.js";
 import { getTagBranchName } from "../getTagVersion.js";
-import { isExecaError, isExecaErrorWithErrorCode } from "../isExecaError.js";
+import { isExecaErrorWithErrorCode } from "../util/index.js";
 
 const releaseLabel = "release";
 

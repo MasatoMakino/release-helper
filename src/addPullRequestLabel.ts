@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { isExecaError } from "./isExecaError.js";
+import { isExecaErrorWithErrorCode } from "./util/index.js";
 
 /**
  * initialize release label
@@ -21,10 +21,7 @@ export async function addPullRequestLabel(
 		]);
 	} catch (e) {
 		if (
-			isExecaError(e) &&
-			e.stderr &&
-			typeof e.stderr === "string" &&
-			e.stderr.includes("already exists; use `--force` to update")
+			isExecaErrorWithErrorCode(e, "already exists; use `--force` to update")
 		) {
 			return;
 		}

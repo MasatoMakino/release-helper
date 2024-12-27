@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { isExecaErrorWithErrorCode } from "../isExecaError.js";
+import { isExecaErrorWithErrorCode } from "../util/index.js";
 
 /**
  * watch the status of the checks on a pull request
