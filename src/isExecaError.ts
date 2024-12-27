@@ -4,6 +4,12 @@ export function isExecaError(e: unknown): e is ExecaError {
 	return (e as ExecaError).name === "ExecaError";
 }
 
+/**
+ *
+ * @param e error
+ * @param code
+ * @returns
+ */
 export function isExecaErrorWithErrorCode(e: unknown, code: string): boolean {
 	return (
 		isExecaError(e) &&
