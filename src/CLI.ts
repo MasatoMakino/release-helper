@@ -3,8 +3,7 @@
 import { Command, Option } from "commander";
 import { checkNpmTestCompletion } from "./checkNpmTestCompletion.js";
 import { cleanMerged } from "./cleanMerged.js";
-import { addReleaseNoteTemplate } from "./init/index.js";
-import { initLabel } from "./initLabel.js";
+import { addReleaseNoteTemplate, initLabel } from "./init/index.js";
 import { postversion } from "./postversion.js";
 import { preversion } from "./preversion.js";
 import { previewRelease } from "./previewRelease.js";

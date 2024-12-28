@@ -1,4 +1,4 @@
-import { addPullRequestLabel } from "./init/index.js";
+import { addPullRequestLabel } from "./index.js";
 
 export async function initLabel() {
 	await addPullRequestLabel(
