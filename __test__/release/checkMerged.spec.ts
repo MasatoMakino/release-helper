@@ -6,12 +6,12 @@ import { getTagBranchName } from "../../src/util/getTagVersion.js";
 vi.mock("execa");
 vi.mock("../../src/util/getTagVersion.js");
 
-const mockedExeca = vi.mocked(execa);
-const mockedGetTagBranchName = vi.mocked(getTagBranchName);
-
 describe("checkMerged", () => {
 	const defaultBranch = "main";
 	const branchName = "feature-branch";
+
+	const mockedExeca = vi.mocked(execa);
+	const mockedGetTagBranchName = vi.mocked(getTagBranchName);
 
 	beforeEach(() => {
 		mockedExeca.mockClear();
@@ -32,9 +32,6 @@ describe("checkMerged", () => {
 			"--merged",
 			`origin/${defaultBranch}`,
 		]);
-
-		mockedExeca.mockClear();
-		mockedGetTagBranchName.mockClear();
 	});
 
 	it("should throw an error if branch is not merged into default branch", async () => {
