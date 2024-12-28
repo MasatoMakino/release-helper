@@ -1,4 +1,3 @@
-import { afterEach } from "node:test";
 import { execa } from "execa";
 import { describe, expect, it, vi } from "vitest";
 import {
@@ -8,16 +7,8 @@ import {
 } from "../../src/util/index.js";
 
 vi.mock("execa");
-afterEach(() => {
-	vi.resetModules();
-});
 
 describe("getTagVersion", () => {
-	it("should throw an error if git command fails", async () => {
-		vi.mocked(execa).mockRejectedValue(new Error("Git error"));
-		await expect(getTagVersion()).rejects.toThrowError();
-	});
-
 	it("should return the current tag version", async () => {
 		// @ts-ignore
 		vi.mocked(execa).mockResolvedValue({
@@ -26,6 +17,11 @@ describe("getTagVersion", () => {
 		});
 		const version = await getTagVersion();
 		expect(version).toBe("v1.0.0");
+	});
+
+	it("should throw an error if git command fails", async () => {
+		vi.mocked(execa).mockRejectedValue(new Error("Git error"));
+		await expect(getTagVersion()).rejects.toThrowError();
 	});
 });
 

@@ -1,11 +1,8 @@
 import { execa } from "execa";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getReleaseNoteBody } from "../../src/util/getReleaseNoteBody.js";
 
 vi.mock("execa");
-afterEach(() => {
-	vi.resetModules();
-});
 
 describe("getReleaseNoteBody", () => {
 	it("should generate the correct release note body", async () => {
