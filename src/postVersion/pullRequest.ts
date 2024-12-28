@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { addPullRequestLabel } from "../addPullRequestLabel.js";
+import { addPullRequestLabel } from "../init/index.js";
 import { getTagBranchName, isExecaErrorWithErrorCode } from "../util/index.js";
 
 const releaseLabel = "release";

@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { isExecaErrorWithErrorCode } from "./util/index.js";
+import { isExecaErrorWithErrorCode } from "../util/index.js";
 
 /**
  * Adds or updates a label in the GitHub repository for a pull request.
