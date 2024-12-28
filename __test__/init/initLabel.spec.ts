@@ -30,5 +30,6 @@ describe("initLabel", () => {
 		);
 
 		vi.mocked(addPullRequestLabel).mockClear();
+		vi.resetAllMocks();
 	});
 });
