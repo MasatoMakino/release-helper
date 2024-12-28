@@ -1,4 +1,4 @@
-import { type ResultPromise, execa } from "execa";
+import { execa } from "execa";
 
 /**
  * Get the release note body.

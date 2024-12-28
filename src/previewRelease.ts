@@ -1,6 +1,5 @@
 import { execa } from "execa";
-import { getTagVersion } from "./getTagVersion.js";
-import { getReleaseNoteBody } from "./util/getReleaseNoteBody.js";
+import { getReleaseNoteBody, getTagVersion } from "./util/index.js";
 
 /**
  * Create a release draft on GitHub.

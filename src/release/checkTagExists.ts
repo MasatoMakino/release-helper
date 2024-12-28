@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { getTagVersion } from "../getTagVersion.js";
+import { getTagVersion } from "../util/index.js";
 
 /**
  * Check if the tag already exists

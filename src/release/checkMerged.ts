@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { getTagBranchName } from "../getTagVersion.js";
+import { getTagBranchName } from "../util/index.js";
 
 /**
  * Check if the version branch is merged to main
