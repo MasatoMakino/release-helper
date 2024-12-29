@@ -1,3 +1,7 @@
+## TypeScript
+
+- Add instructions to include the .js extension in import paths for TypeScript using ESM.
+
 ## Unit tests
 
 - Use **Vitest** as the test framework.
