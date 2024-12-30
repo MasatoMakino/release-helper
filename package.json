@@ -12,7 +12,8 @@
 		"preversion": "node ./dist/CLI.js preversion",
 		"postversion": "node ./dist/CLI.js postversion",
 		"release": "node ./dist/CLI.js release",
-		"build": "tsc"
+		"build": "tsc",
+		"prepack": "npm run build && npm test"
 	},
 	"dependencies": {
 		"commander": "^12.1.0",
