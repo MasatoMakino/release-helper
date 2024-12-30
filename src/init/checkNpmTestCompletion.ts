@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { isExecaError, isExecaErrorWithErrorCode } from "./util/index.js";
+import { isExecaError, isExecaErrorWithErrorCode } from "../util/index.js";
 
 /**
  * Check if npm test has completed
