@@ -1,14 +1,16 @@
 import { execa } from "execa";
-import { isExecaErrorWithErrorCode } from "../isExecaError.js";
+import { isExecaErrorWithErrorCode } from "../util/index.js";
 
 /**
  * watch the status of the checks on a pull request
  *
  * @param prURL - The URL or number of the pull request
  */
-export async function getCheckStatus(prURL: string) {
-	const interval = 10_000; // 10 seconds
-	const timeout = 180_000; // 180 seconds
+export async function getCheckStatus(
+	prURL: string,
+	interval = 10_000,
+	timeout = 180_000,
+) {
 	const startTime = Date.now();
 
 	console.log(`Watching the status of the checks on ${prURL}...`);

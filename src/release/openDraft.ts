@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { getTagVersion } from "../getTagVersion.js";
+import { getTagVersion } from "../util/index.js";
 
 /**
  * Open the draft release in the browser

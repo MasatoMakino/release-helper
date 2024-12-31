@@ -1,5 +1,5 @@
-import { ExecaError, execa } from "execa";
-import { isExecaError } from "./isExecaError.js";
+import { execa } from "execa";
+import { isExecaError, isExecaErrorWithErrorCode } from "../util/index.js";
 
 /**
  * Check if npm test has completed
@@ -17,9 +17,7 @@ export async function checkNpmTestCompletion() {
 				"Tests were found but did not complete within the allotted time. Please disable the watch mode option if it is enabled.",
 			);
 		} else if (
-			isExecaError(e) &&
-			typeof e.stderr === "string" &&
-			e.stderr.includes('npm error Missing script: "test"')
+			isExecaErrorWithErrorCode(e, 'npm error Missing script: "test"')
 		) {
 			console.log("Tests not exist. Please add test script to package.json.");
 		} else {

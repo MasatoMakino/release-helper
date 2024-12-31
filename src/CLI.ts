@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { Command, Option } from "commander";
-import { addReleaseNoteTemplate } from "./addReleaseNoteTemplate.js";
-import { checkNpmTestCompletion } from "./checkNpmTestCompletion.js";
 import { cleanMerged } from "./cleanMerged.js";
-import { initLabel } from "./initLabel.js";
+import {
+	addReleaseNoteTemplate,
+	checkNpmTestCompletion,
+	initLabel,
+} from "./init/index.js";
 import { postversion } from "./postversion.js";
 import { preversion } from "./preversion.js";
 import { previewRelease } from "./previewRelease.js";

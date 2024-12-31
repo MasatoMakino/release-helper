@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { getTagBranchName } from "../getTagVersion.js";
+import { getTagBranchName } from "../util/getTagVersion.js";
 
 /**
  * Push the branch to origin

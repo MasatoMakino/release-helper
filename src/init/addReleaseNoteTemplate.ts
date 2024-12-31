@@ -9,7 +9,7 @@ const __dirname = import.meta.dirname;
  */
 export async function addReleaseNoteTemplate(isForce = false) {
 	try {
-		const from = resolve(__dirname, "../template/release.yml");
+		const from = resolve(__dirname, "../../template/release.yml");
 		const to = resolve("./.github/release.yml");
 
 		await copyFile(from, to, isForce ? undefined : constants.COPYFILE_EXCL);

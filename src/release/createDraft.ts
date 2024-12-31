@@ -1,7 +1,10 @@
 import { execa } from "execa";
-import { getPreviousTagVersion, getTagVersion } from "../getTagVersion.js";
-import { getReleaseNoteBody } from "../util/getReleaseNoteBody.js";
-import { wrapDependencies } from "../util/wrapDependencies.js";
+import {
+	getPreviousTagVersion,
+	getReleaseNoteBody,
+	getTagVersion,
+	wrapDependencies,
+} from "../util/index.js";
 
 /**
  * Create a draft release
