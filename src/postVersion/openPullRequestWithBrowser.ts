@@ -7,7 +7,6 @@ import { execa } from "execa";
  */
 export async function openPullRequestWithBrowser(output: string) {
 	const match = output.match(/\/pull\/(\d+)$/);
-	console.log(match);
 	if (match) {
 		const prNumber = match[1];
 		await execa("gh", ["browse", prNumber]);
