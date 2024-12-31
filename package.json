@@ -16,7 +16,7 @@
 		"prepack": "npm run build && npm test"
 	},
 	"dependencies": {
-		"commander": "^12.1.0",
+		"commander": "^13.0.0",
 		"execa": "^9.5.1"
 	},
 	"devDependencies": {
