@@ -1,10 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { postversion } from "../src/postversion.js";
 import { preversion } from "../src/preversion.js";
+import { release } from "../src/release.js";
 import { runCommand } from "../src/runCommand.js";
 
 vi.mock("../src/preversion.js");
 vi.mock("../src/postversion.js");
+vi.mock("../src/release.js");
 
 describe("runCommand", () => {
 	beforeEach(() => {
@@ -61,5 +63,18 @@ describe("runCommand", () => {
 			useAutoMerge: true,
 		});
 		mockPostversion.mockRestore();
+	});
+
+	it("should run the command release", async () => {
+		const mockRelease = vi.mocked(release).mockResolvedValue();
+
+		process.argv = ["node", "cli.ts", "release"];
+		runCommand();
+
+		expect(mockRelease).toBeCalledWith({
+			defaultBranch: "main",
+			dryRun: false,
+		});
+		mockRelease.mockRestore();
 	});
 });
