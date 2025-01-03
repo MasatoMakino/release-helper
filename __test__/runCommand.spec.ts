@@ -1,4 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { cleanMerged } from "../src/cleanMerged.js";
+import { addReleaseNoteTemplate } from "../src/init/addReleaseNoteTemplate.js";
 import { postversion } from "../src/postversion.js";
 import { preversion } from "../src/preversion.js";
 import { previewRelease } from "../src/previewRelease.js";
@@ -9,6 +11,8 @@ vi.mock("../src/preversion.js");
 vi.mock("../src/postversion.js");
 vi.mock("../src/release.js");
 vi.mock("../src/previewRelease.js");
+vi.mock("../src/init/addReleaseNoteTemplate.js");
+vi.mock("../src/cleanMerged.js");
 
 describe("runCommand", () => {
 	beforeEach(() => {
@@ -88,5 +92,28 @@ describe("runCommand", () => {
 
 		expect(mockPreview).toBeCalledWith();
 		mockPreview.mockRestore();
+	});
+
+	it("should run the command generate-release-template", async () => {
+		const mock = vi.mocked(addReleaseNoteTemplate).mockResolvedValue();
+
+		process.argv = ["node", "cli.ts", "generate-release-template"];
+		runCommand();
+
+		expect(mock).toBeCalledWith(false);
+		mock.mockRestore();
+	});
+
+	it("should run the command clean-merged", async () => {
+		const mock = vi.mocked(cleanMerged).mockResolvedValue();
+
+		process.argv = ["node", "cli.ts", "clean-merged"];
+		runCommand();
+
+		expect(mock).toBeCalledWith({
+			defaultBranch: "main",
+			dryRun: false,
+		});
+		mock.mockRestore();
 	});
 });
