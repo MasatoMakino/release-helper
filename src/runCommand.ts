@@ -10,7 +10,7 @@ import { preversion } from "./preversion.js";
 import { previewRelease } from "./previewRelease.js";
 import { release } from "./release.js";
 
-export async function runCommand() {
+export function runCommand() {
 	const program = new Command();
 	const dryRunOption = new Option("--dry-run", "skip commit and tag").default(
 		false,
