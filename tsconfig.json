@@ -11,5 +11,7 @@
 		"strict": true /* Enable all strict type-checking options. */,
 		"moduleResolution": "nodenext",
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
-	}
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "__test__"]
 }
