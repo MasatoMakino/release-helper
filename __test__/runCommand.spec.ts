@@ -6,7 +6,7 @@ describe("runCommand", () => {
 		vi.restoreAllMocks();
 	});
 
-	it("should run the command", async () => {
+	it("should run the command with --help", async () => {
 		const stdOutSpy = vi
 			.spyOn(process.stdout, "write")
 			// @ts-ignore
