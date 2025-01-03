@@ -60,23 +60,25 @@ describe("preversion", () => {
 			"origin",
 			dryRunOptions.defaultBranch,
 		]);
-		expect(mockExeca).toHaveBeenCalledWith("git", [
+		expect(mockExeca).not.toHaveBeenCalledWith("git", [
 			"checkout",
 			dryRunOptions.defaultBranch,
 		]);
-		expect(mockExeca).toHaveBeenCalledWith("git", [
+		expect(mockExeca).not.toHaveBeenCalledWith("git", [
 			"pull",
 			"origin",
 			dryRunOptions.defaultBranch,
 		]);
-		expect(mockExeca).toHaveBeenCalledWith("npm", ["ci"]);
-		expect(mockExeca).toHaveBeenCalledWith("npm", [
+		expect(mockExeca).not.toHaveBeenCalledWith("npm", ["ci"]);
+		expect(mockExeca).not.toHaveBeenCalledWith("npm", [
 			"run",
 			"build",
 			"--if-present",
 		]);
 		expect(mockExeca).not.toHaveBeenCalledWith("npm", ["test"]);
-		expect(spyLog).toHaveBeenCalledWith("Dry run enabled. Skipping tests");
+		expect(spyLog).toHaveBeenCalledWith(
+			"Dry run enabled. Skipping checkout and tests.",
+		);
 
 		spyLog.mockRestore();
 	});
