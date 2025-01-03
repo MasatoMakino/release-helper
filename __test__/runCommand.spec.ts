@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { postversion } from "../src/postversion.js";
 import { preversion } from "../src/preversion.js";
+import { previewRelease } from "../src/previewRelease.js";
 import { release } from "../src/release.js";
 import { runCommand } from "../src/runCommand.js";
 
 vi.mock("../src/preversion.js");
 vi.mock("../src/postversion.js");
 vi.mock("../src/release.js");
+vi.mock("../src/previewRelease.js");
 
 describe("runCommand", () => {
 	beforeEach(() => {
@@ -76,5 +78,15 @@ describe("runCommand", () => {
 			dryRun: false,
 		});
 		mockRelease.mockRestore();
+	});
+
+	it("should run the command preview", async () => {
+		const mockPreview = vi.mocked(previewRelease).mockResolvedValue();
+
+		process.argv = ["node", "cli.ts", "preview"];
+		runCommand();
+
+		expect(mockPreview).toBeCalledWith();
+		mockPreview.mockRestore();
 	});
 });
