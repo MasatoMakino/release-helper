@@ -1,3 +1,6 @@
+/**
+ * This file is for specifying path resolution for Vitest only.
+ */
 {
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
@@ -5,6 +8,6 @@
 			"@/*": ["*"]
 		}
 	},
-	"include": ["./**/*"],
-	"exclude": ["node_modules"]
+	"include": ["./**/*.ts"], // Include all test files
+	"exclude": ["node_modules"] // Not exclude test files
 }
