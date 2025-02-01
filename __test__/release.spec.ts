@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { release } from "../src/release.js";
+
+import { release } from "@/release.js";
 import { checkMerged } from "../src/release/checkMerged.js";
 import { checkTagExists } from "../src/release/checkTagExists.js";
 import { createDraft } from "../src/release/createDraft.js";
