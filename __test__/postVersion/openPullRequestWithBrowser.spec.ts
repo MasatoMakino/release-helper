@@ -1,6 +1,6 @@
+import { openPullRequestWithBrowser } from "@/postVersion/openPullRequestWithBrowser.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { openPullRequestWithBrowser } from "../../src/postVersion/openPullRequestWithBrowser.js";
 
 vi.mock("execa");
 

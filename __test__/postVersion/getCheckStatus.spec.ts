@@ -1,6 +1,6 @@
+import { getCheckStatus } from "@/postVersion/getCheckState.js";
 import { ExecaError, execa } from "execa";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getCheckStatus } from "../../src/postVersion/getCheckState.js";
 
 vi.mock("execa");
 

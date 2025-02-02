@@ -1,10 +1,10 @@
+import { checkMerged } from "@/release/checkMerged.js";
+import { getTagBranchName } from "@/util/getTagVersion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { checkMerged } from "../../src/release/checkMerged.js";
-import { getTagBranchName } from "../../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
+vi.mock("@/util/getTagVersion.js");
 
 describe("checkMerged", () => {
 	const defaultBranch = "main";

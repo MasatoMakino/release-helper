@@ -1,11 +1,11 @@
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { deleteBranch } from "../../src/release/index.js";
-import { getTagBranchName } from "../../src/util/getTagVersion.js";
+import { deleteBranch } from "@/release/index.js";
+import { getTagBranchName } from "@/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
+vi.mock("@/util/getTagVersion.js");
 
 describe("deleteBranch", () => {
 	const execaMock = vi.mocked(execa);

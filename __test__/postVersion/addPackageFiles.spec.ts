@@ -1,6 +1,6 @@
+import { addPackageFiles } from "@/postVersion/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { addPackageFiles } from "../../src/postVersion/index.js";
 
 vi.mock("execa");
 
