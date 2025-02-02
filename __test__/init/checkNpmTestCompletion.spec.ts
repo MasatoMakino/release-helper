@@ -1,6 +1,6 @@
+import { checkNpmTestCompletion } from "@/init/checkNpmTestCompletion.js";
 import { ExecaError, execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { checkNpmTestCompletion } from "../../src/init/checkNpmTestCompletion.js";
 
 vi.mock("execa");
 

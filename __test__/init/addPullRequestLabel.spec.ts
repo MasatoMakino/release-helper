@@ -1,6 +1,6 @@
+import { addPullRequestLabel } from "@/init/index.js";
 import { ExecaError, execa } from "execa";
 import { describe, expect, it, vi } from "vitest";
-import { addPullRequestLabel } from "../../src/init/index.js";
 
 vi.mock("execa");
 
