@@ -1,22 +1,22 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanMerged } from "../src/cleanMerged.js";
+import { cleanMerged } from "@/cleanMerged.js";
 import {
 	addReleaseNoteTemplate,
 	checkNpmTestCompletion,
 	initLabel,
-} from "../src/init/index.js";
-import { postversion } from "../src/postversion.js";
-import { preversion } from "../src/preversion.js";
-import { previewRelease } from "../src/previewRelease.js";
-import { release } from "../src/release.js";
-import { runCommand } from "../src/runCommand.js";
+} from "@/init/index.js";
+import { postversion } from "@/postversion.js";
+import { preversion } from "@/preversion.js";
+import { previewRelease } from "@/previewRelease.js";
+import { release } from "@/release.js";
+import { runCommand } from "@/runCommand.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../src/preversion.js");
-vi.mock("../src/postversion.js");
-vi.mock("../src/release.js");
-vi.mock("../src/previewRelease.js");
-vi.mock("../src/cleanMerged.js");
-vi.mock("../src/init/index.js");
+vi.mock("@/preversion.js");
+vi.mock("@/postversion.js");
+vi.mock("@/release.js");
+vi.mock("@/previewRelease.js");
+vi.mock("@/cleanMerged.js");
+vi.mock("@/init/index.js");
 
 describe("runCommand", () => {
 	beforeEach(() => {

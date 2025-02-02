@@ -1,10 +1,10 @@
-import { execa } from "execa";
-import { describe, expect, it, vi } from "vitest";
 import {
 	getPreviousTagVersion,
 	getTagBranchName,
 	getTagVersion,
-} from "../../src/util/index.js";
+} from "@/util/index.js";
+import { execa } from "execa";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
 

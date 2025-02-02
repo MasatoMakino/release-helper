@@ -1,6 +1,6 @@
+import { preversion } from "@/preversion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { preversion } from "../src/preversion.js";
 
 vi.mock("execa");
 

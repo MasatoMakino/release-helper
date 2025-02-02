@@ -1,10 +1,10 @@
+import { checkTagExists } from "@/release/checkTagExists.js";
+import { getTagVersion } from "@/util/getTagVersion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { checkTagExists } from "../../src/release/checkTagExists.js";
-import { getTagVersion } from "../../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
+vi.mock("@/util/getTagVersion.js");
 
 describe("checkTagExists", () => {
 	const mockedExeca = vi.mocked(execa);

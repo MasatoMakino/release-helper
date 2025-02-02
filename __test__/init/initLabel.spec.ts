@@ -1,8 +1,8 @@
+import { addPullRequestLabel } from "@/init/addPullRequestLabel.js";
+import { initLabel } from "@/init/index.js";
 import { describe, expect, it, vi } from "vitest";
-import { addPullRequestLabel } from "../../src/init/addPullRequestLabel.js";
-import { initLabel } from "../../src/init/index.js";
 
-vi.mock("../../src/init/addPullRequestLabel.js");
+vi.mock("@/init/addPullRequestLabel.js");
 
 describe("initLabel", () => {
 	it('should add "release", "CICD", and "major" labels', async () => {

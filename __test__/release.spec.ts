@@ -1,18 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { release } from "../src/release.js";
-import { checkMerged } from "../src/release/checkMerged.js";
-import { checkTagExists } from "../src/release/checkTagExists.js";
-import { createDraft } from "../src/release/createDraft.js";
-import { deleteBranch } from "../src/release/deleteBranch.js";
-import { openDraft } from "../src/release/openDraft.js";
-import { pushTags } from "../src/release/pushTags.js";
 
-vi.mock("../src/release/checkMerged.js");
-vi.mock("../src/release/checkTagExists.js");
-vi.mock("../src/release/createDraft.js");
-vi.mock("../src/release/deleteBranch.js");
-vi.mock("../src/release/openDraft.js");
-vi.mock("../src/release/pushTags.js");
+import { release } from "@/release.js";
+import { checkMerged } from "@/release/checkMerged.js";
+import { checkTagExists } from "@/release/checkTagExists.js";
+import { createDraft } from "@/release/createDraft.js";
+import { deleteBranch } from "@/release/deleteBranch.js";
+import { openDraft } from "@/release/openDraft.js";
+import { pushTags } from "@/release/pushTags.js";
+
+vi.mock("@/release/checkMerged.js");
+vi.mock("@/release/checkTagExists.js");
+vi.mock("@/release/createDraft.js");
+vi.mock("@/release/deleteBranch.js");
+vi.mock("@/release/openDraft.js");
+vi.mock("@/release/pushTags.js");
 
 describe("release", () => {
 	const checkMergedMock = vi.mocked(checkMerged);

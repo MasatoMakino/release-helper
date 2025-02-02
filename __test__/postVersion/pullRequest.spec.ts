@@ -1,14 +1,14 @@
+import { addPullRequestLabel } from "@/init/addPullRequestLabel.js";
+import { openPullRequestWithBrowser } from "@/postVersion/openPullRequestWithBrowser.js";
+import { pullRequest } from "@/postVersion/pullRequest.js";
+import { getTagBranchName } from "@/util/getTagVersion.js";
 import { ExecaError, execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { addPullRequestLabel } from "../../src/init/addPullRequestLabel.js";
-import { openPullRequestWithBrowser } from "../../src/postVersion/openPullRequestWithBrowser.js";
-import { pullRequest } from "../../src/postVersion/pullRequest.js";
-import { getTagBranchName } from "../../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
-vi.mock("../../src/init/addPullRequestLabel.js");
-vi.mock("../../src/postVersion/openPullRequestWithBrowser.js");
+vi.mock("@/util/getTagVersion.js");
+vi.mock("@/init/addPullRequestLabel.js");
+vi.mock("@/postVersion/openPullRequestWithBrowser.js");
 
 describe("pullRequest", () => {
 	const defaultBranch = "main";

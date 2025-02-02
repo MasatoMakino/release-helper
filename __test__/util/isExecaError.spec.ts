@@ -1,9 +1,6 @@
+import { isExecaError, isExecaErrorWithErrorCode } from "@/util/index.js";
 import { execa } from "execa";
 import { describe, expect, it } from "vitest";
-import {
-	isExecaError,
-	isExecaErrorWithErrorCode,
-} from "../../src/util/index.js";
 
 describe("isExecaError", () => {
 	it("should return true for ExecaError", async () => {

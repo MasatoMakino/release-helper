@@ -1,10 +1,10 @@
+import { checkout } from "@/postVersion/index.js";
+import { getTagBranchName } from "@/util/getTagVersion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { checkout } from "../../src/postVersion/index.js";
-import { getTagBranchName } from "../../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
+vi.mock("@/util/getTagVersion.js");
 
 describe("checkout", () => {
 	const execaMock = vi.mocked(execa);

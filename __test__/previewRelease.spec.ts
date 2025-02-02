@@ -1,12 +1,12 @@
+import { previewRelease } from "@/previewRelease.js";
+import { getReleaseNoteBody } from "@/util/getReleaseNoteBody.js";
+import { getTagVersion } from "@/util/getTagVersion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { previewRelease } from "../src/previewRelease.js";
-import { getReleaseNoteBody } from "../src/util/getReleaseNoteBody.js";
-import { getTagVersion } from "../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../src/util/getTagVersion.js");
-vi.mock("../src/util/getReleaseNoteBody.js");
+vi.mock("@/util/getTagVersion.js");
+vi.mock("@/util/getReleaseNoteBody.js");
 
 describe("previewRelease", () => {
 	const execaMock = vi.mocked(execa);

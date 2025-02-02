@@ -1,4 +1,3 @@
-import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	addPackageFiles,
 	checkout,
@@ -6,12 +5,13 @@ import {
 	pullRequest,
 	push,
 	watchMerged,
-} from "../src/postVersion/index.js";
-import { postversion } from "../src/postversion.js";
-import { release } from "../src/release.js";
+} from "@/postVersion/index.js";
+import { postversion } from "@/postversion.js";
+import { release } from "@/release.js";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../src/postVersion/index.js");
-vi.mock("../src/release.js");
+vi.mock("@/postVersion/index.js");
+vi.mock("@/release.js");
 
 describe("postversion", () => {
 	const mockOptions = {

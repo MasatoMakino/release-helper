@@ -1,10 +1,10 @@
+import { getCheckStatus } from "@/postVersion/getCheckState.js";
+import { watchMerged } from "@/postVersion/watchMerged.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getCheckStatus } from "../../src/postVersion/getCheckState.js";
-import { watchMerged } from "../../src/postVersion/watchMerged.js";
 
 vi.mock("execa");
-vi.mock("../../src/postVersion/getCheckState.js");
+vi.mock("@/postVersion/getCheckState.js");
 
 describe("watchMerged", () => {
 	const mockPrURL = "https://github.com/owner/repo/pull/123";

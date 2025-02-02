@@ -1,10 +1,10 @@
+import { openDraft } from "@/release/index.js";
+import { getTagVersion } from "@/util/getTagVersion.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { openDraft } from "../../src/release/index.js";
-import { getTagVersion } from "../../src/util/getTagVersion.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
+vi.mock("@/util/getTagVersion.js");
 
 describe("openDraft", () => {
 	const mockedExeca = vi.mocked(execa);

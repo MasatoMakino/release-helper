@@ -1,5 +1,5 @@
+import { wrapDependencies } from "@/util/wrapDependencies.js";
 import { describe, expect, it } from "vitest";
-import { wrapDependencies } from "../../src/util/wrapDependencies.js";
 
 const testBody = `<!-- Release notes generated using configuration in .github/release.yml at main -->
 

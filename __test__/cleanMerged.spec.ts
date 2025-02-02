@@ -1,6 +1,6 @@
+import { cleanMerged } from "@/cleanMerged.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanMerged } from "../src/cleanMerged.js";
 
 vi.mock("execa");
 

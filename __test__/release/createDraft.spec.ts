@@ -1,15 +1,15 @@
+import { createDraft } from "@/release/createDraft.js";
+import { getReleaseNoteBody } from "@/util/getReleaseNoteBody.js";
+import { getPreviousTagVersion } from "@/util/getTagVersion.js";
+import { getTagVersion } from "@/util/getTagVersion.js";
+import { wrapDependencies } from "@/util/wrapDependencies.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createDraft } from "../../src/release/createDraft.js";
-import { getReleaseNoteBody } from "../../src/util/getReleaseNoteBody.js";
-import { getPreviousTagVersion } from "../../src/util/getTagVersion.js";
-import { getTagVersion } from "../../src/util/getTagVersion.js";
-import { wrapDependencies } from "../../src/util/wrapDependencies.js";
 
 vi.mock("execa");
-vi.mock("../../src/util/getTagVersion.js");
-vi.mock("../../src/util/getReleaseNoteBody.js");
-vi.mock("../../src/util/wrapDependencies.js");
+vi.mock("@/util/getTagVersion.js");
+vi.mock("@/util/getReleaseNoteBody.js");
+vi.mock("@/util/wrapDependencies.js");
 
 describe("createDraft", () => {
 	const execaMock = vi.mocked(execa);

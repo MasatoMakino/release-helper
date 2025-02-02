@@ -1,6 +1,6 @@
+import { getReleaseNoteBody } from "@/util/getReleaseNoteBody.js";
 import { execa } from "execa";
 import { describe, expect, it, vi } from "vitest";
-import { getReleaseNoteBody } from "../../src/util/getReleaseNoteBody.js";
 
 vi.mock("execa");
 

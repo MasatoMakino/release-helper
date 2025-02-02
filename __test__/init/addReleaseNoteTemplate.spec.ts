@@ -1,5 +1,5 @@
+import { addReleaseNoteTemplate } from "@/init/addReleaseNoteTemplate.js";
 import { describe, expect, it, vi } from "vitest";
-import { addReleaseNoteTemplate } from "../../src/init/addReleaseNoteTemplate.js";
 
 describe("addReleaseNoteTemplate", () => {
 	it("should copy release.yml to .github directory", async () => {
@@ -13,7 +13,6 @@ describe("addReleaseNoteTemplate", () => {
 
 	it("should skip copying release.yml if file already exists", async () => {
 		const mockConsoleLog = vi.spyOn(console, "log");
-
 		await addReleaseNoteTemplate();
 		expect(mockConsoleLog).toHaveBeenCalledWith(
 			"File '.github/release.yml' already exists. Command skipped copying release.yml file.",
