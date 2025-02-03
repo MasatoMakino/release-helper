@@ -4,8 +4,6 @@ import * as PostVersionModule from "@/postVersion/index.js";
 import { postversion } from "@/postversion.js";
 import * as ReleaseModule from "@/release.js";
 
-vi.mock("@/postVersion/index.js");
-
 describe("postversion", () => {
 	const mockOptions = {
 		dryRun: false,
