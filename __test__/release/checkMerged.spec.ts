@@ -1,21 +1,19 @@
 import { checkMerged } from "@/release/checkMerged.js";
-import { getTagBranchName } from "@/util/index.js";
+import * as UtilModule from "@/util/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("checkMerged", () => {
 	const defaultBranch = "main";
 	const branchName = "feature-branch";
 
 	const mockedExeca = vi.mocked(execa);
-	const mockedGetTagBranchName = vi.mocked(getTagBranchName);
 
 	beforeEach(() => {
+		vi.restoreAllMocks();
 		mockedExeca.mockClear();
-		mockedGetTagBranchName.mockClear();
 	});
 
 	it("should resolve if branch is merged into default branch", async () => {
@@ -23,7 +21,7 @@ describe("checkMerged", () => {
 		mockedExeca.mockResolvedValue({
 			stdout: `${defaultBranch}/${branchName}`,
 		});
-		mockedGetTagBranchName.mockResolvedValue(branchName);
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
 
 		await expect(checkMerged(defaultBranch)).resolves.toBeUndefined();
 		expect(mockedExeca).toHaveBeenCalledWith("git", ["fetch", "origin"]);
@@ -39,7 +37,7 @@ describe("checkMerged", () => {
 		mockedExeca.mockResolvedValue({
 			stdout: `${defaultBranch}/${branchName}`,
 		});
-		mockedGetTagBranchName.mockResolvedValue("other-branch");
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue("other-branch");
 
 		await expect(checkMerged(defaultBranch)).rejects.toThrow(
 			"Branch not merged",
