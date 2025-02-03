@@ -1,14 +1,11 @@
-import { addPullRequestLabel } from "@/init/addPullRequestLabel.js";
-import { openPullRequestWithBrowser } from "@/postVersion/openPullRequestWithBrowser.js";
+import * as InitModule from "@/init/index.js";
+import * as OpenPullRequestWithBrowserModule from "@/postVersion/openPullRequestWithBrowser.js";
 import { pullRequest } from "@/postVersion/pullRequest.js";
-import { getTagBranchName } from "@/util/getTagVersion.js";
+import * as UtilModule from "@/util/index.js";
 import { ExecaError, execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/getTagVersion.js");
-vi.mock("@/init/addPullRequestLabel.js");
-vi.mock("@/postVersion/openPullRequestWithBrowser.js");
 
 describe("pullRequest", () => {
 	const defaultBranch = "main";
@@ -16,24 +13,19 @@ describe("pullRequest", () => {
 	const prUrl = "https://github.com/repo/pull/1";
 
 	const mockedExeca = vi.mocked(execa);
-	const mockedGetTagBranchName = vi.mocked(getTagBranchName);
-	const mockedAddPullRequestLabel = vi.mocked(addPullRequestLabel);
-	const mockedOpenPullRequestWithBrowser = vi.mocked(
-		openPullRequestWithBrowser,
-	);
 
 	beforeEach(() => {
 		vi.resetAllMocks();
 		mockedExeca.mockClear();
-		mockedGetTagBranchName.mockClear();
-		mockedAddPullRequestLabel.mockClear();
-		mockedOpenPullRequestWithBrowser.mockClear();
 	});
 
 	it("should create and auto-merge pull request when useAutoMerge is false", async () => {
-		mockedGetTagBranchName.mockResolvedValue(branchName);
-		mockedAddPullRequestLabel.mockResolvedValue();
-		mockedOpenPullRequestWithBrowser.mockResolvedValue(true);
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
+		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
+		vi.spyOn(
+			OpenPullRequestWithBrowserModule,
+			"openPullRequestWithBrowser",
+		).mockResolvedValue(true);
 
 		mockedExeca
 			//@ts-ignore
@@ -44,9 +36,12 @@ describe("pullRequest", () => {
 	});
 
 	it("should create pull request and open browser when useAutoMerge is true", async () => {
-		mockedGetTagBranchName.mockResolvedValue(branchName);
-		mockedAddPullRequestLabel.mockResolvedValue();
-		mockedOpenPullRequestWithBrowser.mockResolvedValue(true);
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
+		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
+		vi.spyOn(
+			OpenPullRequestWithBrowserModule,
+			"openPullRequestWithBrowser",
+		).mockResolvedValue(true);
 
 		mockedExeca
 			//@ts-ignore
@@ -59,9 +54,11 @@ describe("pullRequest", () => {
 	});
 
 	it("should handle merge error and throw if browser fails to open", async () => {
-		mockedGetTagBranchName.mockResolvedValue(branchName);
-		mockedAddPullRequestLabel.mockResolvedValue();
-		mockedOpenPullRequestWithBrowser.mockResolvedValue(true);
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
+		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
+		const mockedOpenPullRequestWithBrowser = vi
+			.spyOn(OpenPullRequestWithBrowserModule, "openPullRequestWithBrowser")
+			.mockResolvedValue(true);
 
 		const error = new ExecaError();
 		error.stderr = "(enablePullRequestAutoMerge)";
