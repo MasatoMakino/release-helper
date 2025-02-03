@@ -1,23 +1,21 @@
 import { checkTagExists } from "@/release/checkTagExists.js";
-import { getTagVersion } from "@/util/index.js";
+import * as UtilModule from "@/util/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("checkTagExists", () => {
 	const mockedExeca = vi.mocked(execa);
-	const mockedGetTagVersion = vi.mocked(getTagVersion);
 
 	beforeEach(() => {
+		vi.restoreAllMocks();
 		mockedExeca.mockClear();
-		mockedGetTagVersion.mockClear();
 	});
 
 	it("throws an error if the tag already exists", async () => {
 		const mockTag = "v1.0.0";
-		mockedGetTagVersion.mockResolvedValue(mockTag);
+		vi.spyOn(UtilModule, "getTagVersion").mockResolvedValue(mockTag);
 		//@ts-ignore
 		mockedExeca.mockResolvedValue({ stdout: `refs/tags/${mockTag}` });
 
@@ -26,7 +24,7 @@ describe("checkTagExists", () => {
 
 	it("does not throw an error if the tag does not exist", async () => {
 		const mockTag = "v1.0.0";
-		mockedGetTagVersion.mockResolvedValue(mockTag);
+		vi.spyOn(UtilModule, "getTagVersion").mockResolvedValue(mockTag);
 		//@ts-ignore
 		mockedExeca.mockResolvedValue({ stdout: "refs/tags/v0.9.0" });
 

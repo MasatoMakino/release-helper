@@ -2,25 +2,23 @@ import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { deleteBranch } from "@/release/index.js";
-import { getTagBranchName } from "@/util/index.js";
+import * as UtilModule from "@/util/index.js";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("deleteBranch", () => {
 	const execaMock = vi.mocked(execa);
-	const getTagBranchNameMock = vi.mocked(getTagBranchName);
 
 	beforeEach(() => {
+		vi.restoreAllMocks();
 		execaMock.mockClear();
-		getTagBranchNameMock.mockClear();
 	});
 
 	it("calls git checkout on defaultBranch, deletes branch, pushes deletion, and pulls defaultBranch", async () => {
 		const branchName = "main";
 		const tagBranchName = "release-1.2.3";
 
-		getTagBranchNameMock.mockResolvedValue(tagBranchName);
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(tagBranchName);
 
 		await deleteBranch(branchName);
 
