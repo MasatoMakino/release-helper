@@ -1,24 +1,25 @@
 import { checkout } from "@/postVersion/index.js";
+import * as UtilModule from "@/util/index.js";
 import { getTagBranchName } from "@/util/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("checkout", () => {
 	const execaMock = vi.mocked(execa);
-	const getTagBranchNameMock = vi.mocked(getTagBranchName);
 
 	beforeEach(() => {
 		execaMock.mockClear();
-		getTagBranchNameMock.mockClear();
+		vi.restoreAllMocks();
 	});
 
 	it("should checkout to a new branch using getTagBranchName", async () => {
-		getTagBranchNameMock.mockResolvedValue("release/v1.0.0");
+		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(
+			"release/v1.0.0",
+		);
 		await checkout();
-		expect(getTagBranchNameMock).toHaveBeenCalled();
+		expect(getTagBranchName).toHaveBeenCalled();
 		expect(execaMock).toHaveBeenCalledWith("git", [
 			"checkout",
 			"-b",
