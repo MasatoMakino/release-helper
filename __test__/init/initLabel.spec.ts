@@ -1,35 +1,32 @@
-import { addPullRequestLabel } from "@/init/addPullRequestLabel.js";
-import { initLabel } from "@/init/index.js";
+import * as InitModule from "@/init/index.js";
+const { initLabel } = InitModule;
 import { describe, expect, it, vi } from "vitest";
-
-vi.mock("@/init/addPullRequestLabel.js");
 
 describe("initLabel", () => {
 	it('should add "release", "CICD", and "major" labels', async () => {
-		vi.mocked(addPullRequestLabel).mockImplementation(async () => {
-			return;
-		});
+		const mockedAddPullRequestLabel = vi
+			.spyOn(InitModule, "addPullRequestLabel")
+			.mockResolvedValue();
 
 		await initLabel();
 
-		expect(addPullRequestLabel).toHaveBeenCalledTimes(3);
-		expect(addPullRequestLabel).toHaveBeenCalledWith(
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledTimes(3);
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
 			"release",
 			"Pull request for the new release version",
 			"f29513",
 		);
-		expect(addPullRequestLabel).toHaveBeenCalledWith(
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
 			"CICD",
 			"Pull request for maintaining the CI/CD environment",
 			"90cdf4",
 		);
-		expect(addPullRequestLabel).toHaveBeenCalledWith(
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
 			"major",
 			"Pull request for the new major version",
 			"b60205",
 		);
 
-		vi.mocked(addPullRequestLabel).mockClear();
 		vi.resetAllMocks();
 	});
 });
