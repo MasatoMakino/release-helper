@@ -1,19 +1,15 @@
+import { release } from "@/release.js";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { release } from "@/release.js";
-import { checkMerged } from "@/release/checkMerged.js";
-import { checkTagExists } from "@/release/checkTagExists.js";
-import { createDraft } from "@/release/createDraft.js";
-import { deleteBranch } from "@/release/deleteBranch.js";
-import { openDraft } from "@/release/openDraft.js";
-import { pushTags } from "@/release/pushTags.js";
-
-vi.mock("@/release/checkMerged.js");
-vi.mock("@/release/checkTagExists.js");
-vi.mock("@/release/createDraft.js");
-vi.mock("@/release/deleteBranch.js");
-vi.mock("@/release/openDraft.js");
-vi.mock("@/release/pushTags.js");
+import {
+	checkMerged,
+	checkTagExists,
+	createDraft,
+	deleteBranch,
+	openDraft,
+	pushTags,
+} from "@/release/index.js";
+vi.mock("@/release/index.js");
 
 describe("release", () => {
 	const checkMergedMock = vi.mocked(checkMerged);
