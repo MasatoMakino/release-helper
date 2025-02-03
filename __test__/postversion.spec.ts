@@ -1,17 +1,10 @@
-import {
-	addPackageFiles,
-	checkout,
-	openPullRequestWithBrowser,
-	pullRequest,
-	push,
-	watchMerged,
-} from "@/postVersion/index.js";
+import { afterAll, describe, expect, it, vi } from "vitest";
+
+import * as PostVersionModule from "@/postVersion/index.js";
 import { postversion } from "@/postversion.js";
-import { release } from "@/release.js";
-import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
+import * as ReleaseModule from "@/release.js";
 
 vi.mock("@/postVersion/index.js");
-vi.mock("@/release.js");
 
 describe("postversion", () => {
 	const mockOptions = {
@@ -19,24 +12,6 @@ describe("postversion", () => {
 		defaultBranch: "main",
 		useAutoMerge: true,
 	};
-
-	const mockAddPackageFiles = vi.mocked(addPackageFiles);
-	const mockCheckout = vi.mocked(checkout);
-	const mockPush = vi.mocked(push);
-	const mockPullRequest = vi.mocked(pullRequest);
-	const mockWatchMerged = vi.mocked(watchMerged);
-	const mockOpenPullRequestWithBrowser = vi.mocked(openPullRequestWithBrowser);
-	const mockRelease = vi.mocked(release);
-
-	beforeEach(() => {
-		mockAddPackageFiles.mockClear();
-		mockCheckout.mockClear();
-		mockPush.mockClear();
-		mockPullRequest.mockClear();
-		mockWatchMerged.mockClear();
-		mockOpenPullRequestWithBrowser.mockClear();
-		mockRelease.mockClear();
-	});
 
 	afterAll(() => {
 		vi.restoreAllMocks();
@@ -47,17 +22,30 @@ describe("postversion", () => {
 		const result = { ...mockOptions, dryRun: true };
 		await postversion(result);
 		expect(consoleLog).toHaveBeenCalledWith("Dry run enabled");
-		consoleLog.mockRestore();
 	});
 
 	it("should execute all steps when dryRun is false and useAutoMerge is true", async () => {
-		mockAddPackageFiles.mockResolvedValue(undefined);
-		mockCheckout.mockResolvedValue(undefined);
-		mockPush.mockResolvedValue(undefined);
-		mockPullRequest.mockResolvedValue("http://pr.url");
-		mockWatchMerged.mockResolvedValue("merged");
-		mockRelease.mockResolvedValue(undefined);
-		mockOpenPullRequestWithBrowser.mockResolvedValue(true);
+		const mockAddPackageFiles = vi
+			.spyOn(PostVersionModule, "addPackageFiles")
+			.mockResolvedValue(undefined);
+		const mockCheckout = vi
+			.spyOn(PostVersionModule, "checkout")
+			.mockResolvedValue(undefined);
+		const mockPush = vi
+			.spyOn(PostVersionModule, "push")
+			.mockResolvedValue(undefined);
+		const mockPullRequest = vi
+			.spyOn(PostVersionModule, "pullRequest")
+			.mockResolvedValue("http://pr.url");
+		const mockWatchMerged = vi
+			.spyOn(PostVersionModule, "watchMerged")
+			.mockResolvedValue("merged");
+		const mockOpenPullRequestWithBrowser = vi
+			.spyOn(PostVersionModule, "openPullRequestWithBrowser")
+			.mockResolvedValue(true);
+		const mockRelease = vi
+			.spyOn(ReleaseModule, "release")
+			.mockResolvedValue(undefined);
 
 		await postversion(mockOptions);
 
@@ -71,20 +59,24 @@ describe("postversion", () => {
 	});
 
 	it("should open pull request in browser if auto-merge fails", async () => {
-		mockAddPackageFiles.mockResolvedValue(undefined);
-		mockCheckout.mockResolvedValue(undefined);
-		mockPush.mockResolvedValue(undefined);
-		mockPullRequest.mockResolvedValue("http://pr.url");
-		mockWatchMerged.mockResolvedValue("failed");
-		mockOpenPullRequestWithBrowser.mockResolvedValue(true);
+		vi.spyOn(PostVersionModule, "addPackageFiles").mockResolvedValue(undefined);
+		vi.spyOn(PostVersionModule, "checkout").mockResolvedValue(undefined);
+		vi.spyOn(PostVersionModule, "push").mockResolvedValue(undefined);
+		vi.spyOn(PostVersionModule, "pullRequest").mockResolvedValue(
+			"http://pr.url",
+		);
+		vi.spyOn(PostVersionModule, "watchMerged").mockResolvedValue("failed");
+		const mockOpenPullRequestWithBrowser = vi
+			.spyOn(PostVersionModule, "openPullRequestWithBrowser")
+			.mockResolvedValue(true);
 
 		const consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
 
 		await postversion(mockOptions);
 
-		expect(openPullRequestWithBrowser).toHaveBeenCalledWith("http://pr.url");
+		expect(mockOpenPullRequestWithBrowser).toHaveBeenCalledWith(
+			"http://pr.url",
+		);
 		expect(consoleLog).not.toHaveBeenCalledWith("PR was successfully merged.");
-
-		consoleLog.mockRestore();
 	});
 });
