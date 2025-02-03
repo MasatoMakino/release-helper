@@ -1,6 +1,6 @@
 import * as InitModule from "@/init/index.js";
-import * as OpenPullRequestWithBrowserModule from "@/postVersion/openPullRequestWithBrowser.js";
-import { pullRequest } from "@/postVersion/pullRequest.js";
+import * as PostVersionModule from "@/postVersion/index.js";
+const { pullRequest } = PostVersionModule;
 import * as UtilModule from "@/util/index.js";
 import { ExecaError, execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -22,10 +22,9 @@ describe("pullRequest", () => {
 	it("should create and auto-merge pull request when useAutoMerge is false", async () => {
 		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
 		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
-		vi.spyOn(
-			OpenPullRequestWithBrowserModule,
-			"openPullRequestWithBrowser",
-		).mockResolvedValue(true);
+		vi.spyOn(PostVersionModule, "openPullRequestWithBrowser").mockResolvedValue(
+			true,
+		);
 
 		mockedExeca
 			//@ts-ignore
@@ -38,10 +37,9 @@ describe("pullRequest", () => {
 	it("should create pull request and open browser when useAutoMerge is true", async () => {
 		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
 		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
-		vi.spyOn(
-			OpenPullRequestWithBrowserModule,
-			"openPullRequestWithBrowser",
-		).mockResolvedValue(true);
+		vi.spyOn(PostVersionModule, "openPullRequestWithBrowser").mockResolvedValue(
+			true,
+		);
 
 		mockedExeca
 			//@ts-ignore
@@ -57,7 +55,7 @@ describe("pullRequest", () => {
 		vi.spyOn(UtilModule, "getTagBranchName").mockResolvedValue(branchName);
 		vi.spyOn(InitModule, "addPullRequestLabel").mockResolvedValue();
 		const mockedOpenPullRequestWithBrowser = vi
-			.spyOn(OpenPullRequestWithBrowserModule, "openPullRequestWithBrowser")
+			.spyOn(PostVersionModule, "openPullRequestWithBrowser")
 			.mockResolvedValue(true);
 
 		const error = new ExecaError();

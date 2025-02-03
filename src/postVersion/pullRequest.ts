@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { addPullRequestLabel } from "../init/index.js";
 import { getTagBranchName, isExecaErrorWithErrorCode } from "../util/index.js";
-import { openPullRequestWithBrowser } from "./openPullRequestWithBrowser.js";
+import { openPullRequestWithBrowser } from "./index.js";
 
 const releaseLabel = "release";
 
