@@ -1,24 +1,25 @@
-import { openDraft } from "@/release/index.js";
-import { getTagVersion } from "@/util/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { openDraft } from "@/release/index.js";
+import * as UtilModule from "@/util/index.js";
+
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("openDraft", () => {
 	const mockedExeca = vi.mocked(execa);
-	const mockedGetTagVersion = vi.mocked(getTagVersion);
 
 	beforeEach(() => {
+		vi.restoreAllMocks();
 		mockedExeca.mockClear();
-		mockedGetTagVersion.mockClear();
 	});
 
 	it("should open the draft release in the browser with the correct tag", async () => {
 		// @ts-ignore
 		mockedExeca.mockImplementation(() => Promise.resolve());
-		mockedGetTagVersion.mockResolvedValue("v1.2.3");
+		const mockedGetTagVersion = vi
+			.spyOn(UtilModule, "getTagVersion")
+			.mockResolvedValue("v1.2.3");
 
 		await openDraft();
 		expect(mockedGetTagVersion).toHaveBeenCalledTimes(1);

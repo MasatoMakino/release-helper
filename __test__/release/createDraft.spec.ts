@@ -1,36 +1,25 @@
 import { createDraft } from "@/release/createDraft.js";
-import {
-	getPreviousTagVersion,
-	getReleaseNoteBody,
-	getTagVersion,
-	wrapDependencies,
-} from "@/util/index.js";
+import * as UtilModule from "@/util/index.js";
 import { execa } from "execa";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("createDraft", () => {
 	const execaMock = vi.mocked(execa);
-	const getTagVersionMock = vi.mocked(getTagVersion);
-	const getPreviousTagVersionMock = vi.mocked(getPreviousTagVersion);
-	const getReleaseNoteBodyMock = vi.mocked(getReleaseNoteBody);
-	const wrapDependenciesMock = vi.mocked(wrapDependencies);
 
 	beforeEach(() => {
+		vi.restoreAllMocks();
 		execaMock.mockClear();
-		getTagVersionMock.mockClear();
-		getPreviousTagVersionMock.mockClear();
-		getReleaseNoteBodyMock.mockClear();
-		wrapDependenciesMock.mockClear();
 	});
 
 	it("creates a draft release with previous tag", async () => {
-		getTagVersionMock.mockResolvedValue("v2.0.0");
-		getPreviousTagVersionMock.mockResolvedValue("v1.9.0");
-		getReleaseNoteBodyMock.mockResolvedValue("release body");
-		wrapDependenciesMock.mockReturnValue("wrapped body");
+		vi.spyOn(UtilModule, "getPreviousTagVersion").mockResolvedValue("v1.9.0");
+		vi.spyOn(UtilModule, "getTagVersion").mockResolvedValue("v2.0.0");
+		vi.spyOn(UtilModule, "getReleaseNoteBody").mockResolvedValue(
+			"release body",
+		);
+		vi.spyOn(UtilModule, "wrapDependencies").mockReturnValue("wrapped body");
 
 		await createDraft();
 
@@ -54,10 +43,12 @@ describe("createDraft", () => {
 	});
 
 	it("creates a draft release without previous tag", async () => {
-		getTagVersionMock.mockResolvedValue("v2.0.0");
-		getPreviousTagVersionMock.mockResolvedValue(undefined);
-		getReleaseNoteBodyMock.mockResolvedValue("release body");
-		wrapDependenciesMock.mockReturnValue(null);
+		vi.spyOn(UtilModule, "getPreviousTagVersion").mockResolvedValue(undefined);
+		vi.spyOn(UtilModule, "getTagVersion").mockResolvedValue("v2.0.0");
+		vi.spyOn(UtilModule, "getReleaseNoteBody").mockResolvedValue(
+			"release body",
+		);
+		vi.spyOn(UtilModule, "wrapDependencies").mockReturnValue(null);
 
 		await createDraft();
 
