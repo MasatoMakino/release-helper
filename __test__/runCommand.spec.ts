@@ -1,22 +1,13 @@
-import { cleanMerged } from "@/cleanMerged.js";
-import {
-	addReleaseNoteTemplate,
-	checkNpmTestCompletion,
-	initLabel,
-} from "@/init/index.js";
-import { postversion } from "@/postversion.js";
-import { preversion } from "@/preversion.js";
-import { previewRelease } from "@/previewRelease.js";
-import { release } from "@/release.js";
-import { runCommand } from "@/runCommand.js";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@/preversion.js");
-vi.mock("@/postversion.js");
-vi.mock("@/release.js");
-vi.mock("@/previewRelease.js");
-vi.mock("@/cleanMerged.js");
-vi.mock("@/init/index.js");
+import * as cleanMergedModule from "@/cleanMerged.js";
+import * as InitModule from "@/init/index.js";
+import * as PostversionModule from "@/postversion.js";
+import * as PreversionModule from "@/preversion.js";
+import * as previewReleaseModule from "@/previewRelease.js";
+import * as ReleaseModule from "@/release.js";
+
+import { runCommand } from "@/runCommand.js";
 
 describe("runCommand", () => {
 	beforeEach(() => {
@@ -48,7 +39,9 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command previersion", async () => {
-		const mockPreversion = vi.mocked(preversion).mockResolvedValue();
+		const mockPreversion = vi
+			.spyOn(PreversionModule, "preversion")
+			.mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "preversion"];
 		runCommand();
@@ -65,7 +58,9 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command postversion", async () => {
-		const mockPostversion = vi.mocked(postversion).mockResolvedValue();
+		const mockPostversion = vi
+			.spyOn(PostversionModule, "postversion")
+			.mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "postversion"];
 		runCommand();
@@ -82,7 +77,7 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command release", async () => {
-		const mockRelease = vi.mocked(release).mockResolvedValue();
+		const mockRelease = vi.spyOn(ReleaseModule, "release").mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "release"];
 		runCommand();
@@ -98,7 +93,9 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command preview", async () => {
-		const mockPreview = vi.mocked(previewRelease).mockResolvedValue();
+		const mockPreview = vi
+			.spyOn(previewReleaseModule, "previewRelease")
+			.mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "preview"];
 		runCommand();
@@ -110,7 +107,9 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command generate-release-template", async () => {
-		const mock = vi.mocked(addReleaseNoteTemplate).mockResolvedValue();
+		const mock = vi
+			.spyOn(InitModule, "addReleaseNoteTemplate")
+			.mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "generate-release-template"];
 		runCommand();
@@ -122,7 +121,7 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command clean-merged", async () => {
-		const mock = vi.mocked(cleanMerged).mockResolvedValue();
+		const mock = vi.spyOn(cleanMergedModule, "cleanMerged").mockResolvedValue();
 
 		process.argv = ["node", "cli.ts", "clean-merged"];
 		runCommand();
@@ -138,12 +137,12 @@ describe("runCommand", () => {
 	});
 
 	it("should run the command init", async () => {
-		const mockInitLabel = vi.mocked(initLabel).mockResolvedValue();
+		const mockInitLabel = vi.spyOn(InitModule, "initLabel").mockResolvedValue();
 		const mockAddReleaseNoteTemplate = vi
-			.mocked(addReleaseNoteTemplate)
+			.spyOn(InitModule, "addReleaseNoteTemplate")
 			.mockResolvedValue();
 		const mockCheckNpmTestCompletion = vi
-			.mocked(checkNpmTestCompletion)
+			.spyOn(InitModule, "checkNpmTestCompletion")
 			.mockResolvedValue();
 
 		const spyLog = vi.spyOn(console, "log").mockReturnValue();

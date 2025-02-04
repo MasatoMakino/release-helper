@@ -1,25 +1,26 @@
 import { previewRelease } from "@/previewRelease.js";
-import { getReleaseNoteBody, getTagVersion } from "@/util/index.js";
+import * as UtilModule from "@/util/index.js";
 import { execa } from "execa";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("execa");
-vi.mock("@/util/index.js");
 
 describe("previewRelease", () => {
 	const execaMock = vi.mocked(execa);
-	const getTagVersionMock = vi.mocked(getTagVersion);
-	const getReleaseNoteBodyMock = vi.mocked(getReleaseNoteBody);
 
-	beforeEach(() => {
+	afterEach(() => {
+		vi.restoreAllMocks();
 		execaMock.mockClear();
-		getTagVersionMock.mockClear();
-		getReleaseNoteBodyMock.mockClear();
 	});
 
 	it("should create and delete a release successfully", async () => {
-		getTagVersionMock.mockResolvedValue("v1.0.0");
-		getReleaseNoteBodyMock.mockResolvedValue("Release notes");
+		const getTagVersionMock = vi
+			.spyOn(UtilModule, "getTagVersion")
+			.mockResolvedValue("v1.0.0");
+		const getReleaseNoteBodyMock = vi
+			.spyOn(UtilModule, "getReleaseNoteBody")
+			.mockResolvedValue("Release notes");
+
 		const spyLog = vi.spyOn(console, "log").mockImplementation(() => {});
 		//@ts-ignore
 		execaMock.mockResolvedValueOnce({});
@@ -43,11 +44,10 @@ describe("previewRelease", () => {
 			"delete",
 			"v1.0.0-preview0",
 		]);
-		spyLog.mockRestore();
 	});
 
 	it("should handle execa failure during release creation", async () => {
-		getTagVersionMock.mockResolvedValue("v1.0.0");
+		vi.spyOn(UtilModule, "getTagVersion").mockResolvedValue("v1.0.0");
 		execaMock.mockRejectedValue(new Error("Failed to create release"));
 
 		await expect(previewRelease()).rejects.toThrow("Failed to create release");

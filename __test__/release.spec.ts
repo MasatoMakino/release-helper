@@ -1,41 +1,51 @@
-import { release } from "@/release.js";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import {
-	checkMerged,
-	checkTagExists,
-	createDraft,
-	deleteBranch,
-	openDraft,
-	pushTags,
-} from "@/release/index.js";
-vi.mock("@/release/index.js");
+import { release } from "@/release.js";
+import * as ReleaseModule from "@/release/index.js";
 
 describe("release", () => {
-	const checkMergedMock = vi.mocked(checkMerged);
-	const checkTagExistsMock = vi.mocked(checkTagExists);
-	const createDraftMock = vi.mocked(createDraft);
-	const deleteBranchMock = vi.mocked(deleteBranch);
-	const openDraftMock = vi.mocked(openDraft);
-	const pushTagsMock = vi.mocked(pushTags);
-
-	beforeEach(() => {
-		checkMergedMock.mockRestore();
-		checkTagExistsMock.mockRestore();
-		pushTagsMock.mockRestore();
-		createDraftMock.mockRestore();
-		openDraftMock.mockRestore();
-		deleteBranchMock.mockRestore();
-
-		checkMergedMock.mockResolvedValue();
-		checkTagExistsMock.mockResolvedValue();
-		pushTagsMock.mockResolvedValue();
-		createDraftMock.mockResolvedValue();
-		openDraftMock.mockResolvedValue();
-		deleteBranchMock.mockResolvedValue();
+	afterEach(() => {
+		vi.restoreAllMocks();
 	});
 
+	const mockReleaseModule = () => {
+		const checkMergedMock = vi
+			.spyOn(ReleaseModule, "checkMerged")
+			.mockResolvedValue();
+		const checkTagExistsMock = vi
+			.spyOn(ReleaseModule, "checkTagExists")
+			.mockResolvedValue();
+		const createDraftMock = vi
+			.spyOn(ReleaseModule, "createDraft")
+			.mockResolvedValue();
+		const deleteBranchMock = vi
+			.spyOn(ReleaseModule, "deleteBranch")
+			.mockResolvedValue();
+		const openDraftMock = vi
+			.spyOn(ReleaseModule, "openDraft")
+			.mockResolvedValue();
+		const pushTagsMock = vi
+			.spyOn(ReleaseModule, "pushTags")
+			.mockResolvedValue();
+		return {
+			checkMergedMock,
+			checkTagExistsMock,
+			createDraftMock,
+			deleteBranchMock,
+			openDraftMock,
+			pushTagsMock,
+		};
+	};
+
 	it('should log "Dry run enabled" and return when options.dryRun is true', async () => {
+		const {
+			checkMergedMock,
+			checkTagExistsMock,
+			createDraftMock,
+			deleteBranchMock,
+			openDraftMock,
+			pushTagsMock,
+		} = mockReleaseModule();
 		const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
 		const options = { dryRun: true, defaultBranch: "main" };
@@ -55,7 +65,14 @@ describe("release", () => {
 
 	it("should perform all release steps when options.dryRun is false", async () => {
 		const options = { dryRun: false, defaultBranch: "main" };
-
+		const {
+			checkMergedMock,
+			checkTagExistsMock,
+			createDraftMock,
+			deleteBranchMock,
+			openDraftMock,
+			pushTagsMock,
+		} = mockReleaseModule();
 		await release(options);
 
 		expect(checkMergedMock).toHaveBeenCalledWith(options.defaultBranch);
