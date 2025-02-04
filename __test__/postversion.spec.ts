@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import * as PostVersionModule from "@/postVersion/index.js";
 import { postversion } from "@/postversion.js";
@@ -11,7 +11,7 @@ describe("postversion", () => {
 		useAutoMerge: true,
 	};
 
-	afterAll(() => {
+	afterEach(() => {
 		vi.restoreAllMocks();
 	});
 
