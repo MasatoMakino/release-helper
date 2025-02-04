@@ -16,7 +16,7 @@ describe("postversion", () => {
 	});
 
 	it("should log and return when dryRun is true", async () => {
-		const consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
+		const consoleLog = vi.spyOn(console, "log");
 		const result = { ...mockOptions, dryRun: true };
 		await postversion(result);
 		expect(consoleLog).toHaveBeenCalledWith("Dry run enabled");
@@ -67,14 +67,13 @@ describe("postversion", () => {
 		const mockOpenPullRequestWithBrowser = vi
 			.spyOn(PostVersionModule, "openPullRequestWithBrowser")
 			.mockResolvedValue(true);
+		const consoleLog = vi.spyOn(console, "log");
 
-		const consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
-
-		await postversion(mockOptions);
+		await postversion({ ...mockOptions, dryRun: false });
 
 		expect(mockOpenPullRequestWithBrowser).toHaveBeenCalledWith(
 			"http://pr.url",
 		);
-		expect(consoleLog).not.toHaveBeenCalledWith("PR was successfully merged.");
+		expect(consoleLog).not.toBeCalled();
 	});
 });
