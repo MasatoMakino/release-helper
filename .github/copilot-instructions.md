@@ -2,6 +2,22 @@
 
 - Ensure that import paths in TypeScript ESM include the .js extension.
 
+### import path in src directory
+
+- When importing files from the src directory, always use relative paths and include the .js extension.
+- Do not use alias paths for src directory files.
+- For external npm modules, import using the module name only.
+- Note: In this project, alias paths are resolved only by Vitest. The tsc command does not resolve alias paths and does not perform path rewriting; therefore, alias paths must not be used in production code.
+  
+```typescript
+// Correct examples:
+import { execa } from "execa"; // external npm module import by name
+import { isExecaErrorWithErrorCode } from "../util/index.js"; // src file: relative path with .js extension
+
+// Incorrect example:
+import { isExecaErrorWithErrorCode } from "@/util/index.js"; // alias path should not be used for src files
+```
+
 ## Unit tests
 
 - Use **Vitest** as the test framework.
