@@ -22,6 +22,8 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
       - run: npm ci
+      - name: Run Biome
+        run: biome ci
       - run: npm run build
       - run: npm test
       - run: node ./dist/CLI.js --help 
