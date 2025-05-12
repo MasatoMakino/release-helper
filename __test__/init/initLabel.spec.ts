@@ -22,6 +22,11 @@ describe("initLabel", () => {
 			"90cdf4",
 		);
 		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
+			"chores",
+			"Pull request for miscellaneous maintenance tasks that do not affect the distributed package.",
+			"18DEE4",
+		);
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
 			"major",
 			"Pull request for the new major version",
 			"b60205",
