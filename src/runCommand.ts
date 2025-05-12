@@ -61,9 +61,14 @@ export function runCommand() {
 	program
 		.command("init")
 		.description("initialize release label and release note template")
-		.action(async () => {
+		.option(
+			"--overwrite-template",
+			"overwrite existing release note template",
+			false,
+		)
+		.action(async (options) => {
 			await initLabel();
-			await addReleaseNoteTemplate();
+			await addReleaseNoteTemplate(options.overwriteTemplate);
 			await checkNpmTestCompletion();
 		});
 

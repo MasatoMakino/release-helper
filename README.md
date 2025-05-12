@@ -55,7 +55,7 @@ Commands:
   postversion [options]                create a pull request on GitHub
   release [options]                    push version tag and create a release on GitHub
   preview                              get release note from GitHub release
-  init                                 initialize release label and release note template
+  init [options]                       initialize release label and release note template
   generate-release-template [options]  generate release note template to .github directory
   help [command]                       display help for command
 ```

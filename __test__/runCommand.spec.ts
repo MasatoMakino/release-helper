@@ -152,7 +152,7 @@ describe("runCommand", () => {
 
 		await vi.waitFor(() => {
 			expect(mockInitLabel).toBeCalledWith();
-			expect(mockAddReleaseNoteTemplate).toBeCalledWith();
+			expect(mockAddReleaseNoteTemplate).toBeCalledWith(false);
 			expect(mockCheckNpmTestCompletion).toBeCalled();
 		});
 

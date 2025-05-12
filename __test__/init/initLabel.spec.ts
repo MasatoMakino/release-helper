@@ -10,7 +10,7 @@ describe("initLabel", () => {
 
 		await initLabel();
 
-		expect(mockedAddPullRequestLabel).toHaveBeenCalledTimes(3);
+		expect(mockedAddPullRequestLabel).toHaveBeenCalledTimes(4);
 		expect(mockedAddPullRequestLabel).toHaveBeenCalledWith(
 			"release",
 			"Pull request for the new release version",
