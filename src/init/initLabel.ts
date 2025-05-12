@@ -14,6 +14,12 @@ export async function initLabel() {
 	);
 
 	await addPullRequestLabel(
+		"chores",
+		"Pull request for miscellaneous maintenance tasks that do not affect the distributed package.",
+		"18DEE4",
+	);
+
+	await addPullRequestLabel(
 		"major",
 		"Pull request for the new major version",
 		"b60205",
