@@ -6,5 +6,10 @@ export default defineConfig({
 		alias: {
 			"@": path.resolve(__dirname, "./src"),
 		},
+		coverage: {
+			reporter: ["text", "lcov", "json-summary", "json"],
+			reportOnFailure: true,
+			include: ["src/**/*.ts"],
+		},
 	},
 });
