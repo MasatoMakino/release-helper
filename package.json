@@ -28,5 +28,13 @@
 		"typescript": "^5.7.2"
 	},
 	"author": "MasatoMakino <makino.masato.g@gmail.com>",
-	"license": "MIT"
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MasatoMakino/release-helper.git"
+	},
+	"bugs": {
+		"url": "https://github.com/MasatoMakino/release-helper/issues"
+	},
+	"homepage": "https://github.com/MasatoMakino/release-helper#readme"
 }
