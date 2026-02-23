@@ -1,3 +1,11 @@
+> [!CAUTION]
+>
+> **This repository has been archived.**
+>
+> npm package execution environments and release permissions should be separated for supply chain security. Distributing release workflows as an npm package is inherently contradictory — the isolated environment that protects against supply chain attacks cannot hold the credentials needed for releasing.
+>
+> See [#209](https://github.com/MasatoMakino/release-helper/issues/209) for details.
+
 # Release Helper
 
 This is a simple script to help with the release process of a project. It will create a new release branch, update the version number in the project files, and create a release of GitHub.
